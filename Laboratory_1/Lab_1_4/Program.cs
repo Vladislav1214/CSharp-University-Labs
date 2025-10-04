@@ -59,32 +59,36 @@ class Program
         while (true)
         {
             Console.WriteLine("\n--- Меню словника ---");
-            Console.WriteLine("1. Додати слово/переклад");
-            Console.WriteLine("2. Знайти переклад слова");
-            Console.WriteLine("3. Замінити слово/переклад");
-            Console.WriteLine("4. Видалити слово/переклад");
-            Console.WriteLine("5. Експортувати слово");
-            Console.WriteLine("6. Повернутися до головного меню");
+            Console.WriteLine("1. Переглянути всі слова");
+            Console.WriteLine("2. Додати слово/переклад");
+            Console.WriteLine("3. Знайти переклад слова");
+            Console.WriteLine("4. Замінити слово/переклад");
+            Console.WriteLine("5. Видалити слово/переклад");
+            Console.WriteLine("6. Експортувати слово");
+            Console.WriteLine("7. Повернутися до головного меню");
             Console.Write("Ваш вибір: ");
 
             switch (Console.ReadLine())
             {
                 case "1":
-                    AddMenu();
+                    manager.DisplayAllWords();
                     break;
                 case "2":
-                    FindMenu();
+                    AddMenu();
                     break;
                 case "3":
-                    UpdateMenu();
+                    FindMenu();
                     break;
                 case "4":
-                    RemoveMenu();
+                    UpdateMenu();
                     break;
                 case "5":
-                    ExportMenu();
+                    RemoveMenu();
                     break;
                 case "6":
+                    ExportMenu();
+                    break;
+                case "7":
                     return;
                 default:
                     Console.WriteLine(">> Неправильний вибір.");

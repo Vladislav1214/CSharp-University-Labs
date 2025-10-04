@@ -32,6 +32,24 @@ public class DictionaryManager
         string json = JsonSerializer.Serialize(_entries, options);
         File.WriteAllText(_currentDictionaryPath, json);
     }
+    
+    public void DisplayAllWords()
+    {
+        if (!_entries.Any())
+        {
+            Console.WriteLine(">> Словник порожній.");
+            return;
+        }
+
+        Console.WriteLine("\n--- Вміст словника ---");
+        int counter = 1;
+        foreach (var entry in _entries.OrderBy(e => e.Word))
+        {
+            Console.WriteLine($"{counter}. {entry.Word} -> [{string.Join(", ", entry.Translations)}]");
+            counter++;
+        }
+        Console.WriteLine("----------------------");
+    }
 
     public DictionaryEntry? FindWord(string word)
     {
