@@ -23,7 +23,7 @@ namespace Lab_1
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(regUser.DateOfBirth))
+            if (regUser.DateOfBirth == DateTime.MinValue)
             {
                 MessageBox.Show("Date Of Birth are required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -119,7 +119,7 @@ namespace Lab_1
                 DateOfBirthErrorText.Visibility = Visibility.Visible;
                 DateOfBirthTextBox.BorderBrush = Brushes.Red;
             }
-            else regUser.DateOfBirth = ValidationService.FixFullNameCase(DateOfBirthTextBox.Text);
+            else regUser.DateOfBirth = DateTime.Parse(DateOfBirthTextBox.Text);
         }
 
         private void ValidateZipCode()
@@ -134,7 +134,7 @@ namespace Lab_1
                 ZipCodeErrorText.Visibility = Visibility.Visible;
                 ZipCodeTextBox.BorderBrush = Brushes.Red;
             }
-            else regUser.ZipCode = ValidationService.FixFullNameCase(ZipCodeTextBox.Text);
+            else regUser.ZipCode = int.Parse(ZipCodeTextBox.Text);
         }
 
         private void ValidateIdNumber()
@@ -149,7 +149,7 @@ namespace Lab_1
                 IdNumberErrorText.Visibility = Visibility.Visible;
                 IdNumberTextBox.BorderBrush = Brushes.Red;
             }
-            else regUser.IdNumber = ValidationService.FixFullNameCase(IdNumberTextBox.Text);
+            else regUser.IdNumber = int.Parse(IdNumberTextBox.Text);
         }
     }
 }
