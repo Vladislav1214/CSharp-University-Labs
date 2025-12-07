@@ -1,0 +1,95 @@
+﻿<Page x:Class="Laboratory_6.View.CandidateEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Laboratory_6.View"
+      xmlns:model="clr-namespace:Laboratory_6.Model"
+      xmlns:converter="clr-namespace:Laboratory_6.Converter"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Додавання/Редагування кандидата">
+
+    <Page.Resources>
+        <ObjectDataProvider x:Key="LanguageProficiencyValues" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:LanguageProficiency"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <converter:EnumToStringConverter x:Key="EnumConverter"/>
+    </Page.Resources>
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="PageTitle" Grid.Row="0" Text="Додавання нового кандидата" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+            <StackPanel Grid.Row="1">
+                <Label Content="П.І.П.:"/>
+                <TextBox x:Name="FullNameTextBox" LostFocus="TextBox_LostFocus"/>
+                <Border Height="16">
+                    <TextBlock x:Name="FullNameErrorText" Foreground="Red" FontSize="8" Visibility="Collapsed"/>
+                </Border>
+
+                <Label Content="Дата народження:" Margin="0,10,0,0"/>
+                <DatePicker x:Name="DateOfBirthPicker" LostFocus="TextBox_LostFocus"/>
+                <Border Height="16">
+                    <TextBlock x:Name="DateOfBirthPickerErrorText" Foreground="Red" FontSize="8" Visibility="Collapsed"/>
+                </Border>
+
+                <Label Content="Освіта:" Margin="0,10,0,0"/>
+                <ComboBox x:Name="EducationComboBox"/>
+
+                <Label Content="Стаж роботи (повних років):" Margin="0,10,0,0"/>
+                <TextBox x:Name="WorkExperienceTextBox" LostFocus="TextBox_LostFocus"/>
+                <Border Height="16">
+                    <TextBlock x:Name="WorkExperienceErrorText" Foreground="Red" FontSize="8" Visibility="Collapsed"/>
+                </Border>
+
+                <Label Content="Володіння ПК" Margin="0,10,0,0"/>
+                <ComboBox x:Name="ComputerLiteracyComboBox"/>
+                
+                <CheckBox x:Name="RecommendationsCheckBox" Content="Є рекомендації" Margin="0,10,0,0"/>
+
+                <Label Content="Знання іноземних мов:" Margin="0,15,0,0" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
+                    <ComboBox x:Name="LanguagesToAddComboBox" Width="150"/>
+                    <Button Content="Додати мову" Click="AddLanguageButton_Click" Margin="10,0,0,0"/>
+                </StackPanel>
+                <ItemsControl x:Name="SelectedLanguagesItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding LanguageName}" VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="1" ItemsSource="{Binding Source={StaticResource LanguageProficiencyValues}}" SelectedItem="{Binding FluentIn}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Button Grid.Column="2" Content="X" Foreground="Red" FontWeight="Bold" Click="RemoveLanguageButton_Click" Tag="{Binding}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                <Button Content="Зберегти" Width="120" Click="SaveButton_Click"/>
+                <Button Content="Скасувати" Width="120" Margin="10,0,0,0" Click="CancelButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>
